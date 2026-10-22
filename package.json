@@ -1,6 +1,6 @@
 {
-  "name": "agenttown",
-  "version": "0.1.0",
+  "name": "@barood-labs/agenttown",
+  "version": "0.1.1",
   "description": "Replay your AI coding agent session (Claude Code, Codex) as a pixel-art isometric town.",
   "type": "module",
   "bin": {

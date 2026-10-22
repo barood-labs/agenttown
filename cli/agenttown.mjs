@@ -17,11 +17,11 @@ if (flag('-h') || flag('--help')) {
   console.log(`agenttown: replay an AI coding agent session as a pixel-art town
 
 usage:
-  npx agenttown                 replay your most recent Claude Code / Codex session
-  npx agenttown <file.jsonl>    replay a specific session file
-  npx agenttown --list          list recent sessions
-  npx agenttown --pick <n>      replay session #n from --list
-  npx agenttown --demo          replay the bundled demo session
+  npx @barood-labs/agenttown                 replay your most recent Claude Code / Codex session
+  npx @barood-labs/agenttown <file.jsonl>    replay a specific session file
+  npx @barood-labs/agenttown --list          list recent sessions
+  npx @barood-labs/agenttown --pick <n>      replay session #n from --list
+  npx @barood-labs/agenttown --demo          replay the bundled demo session
 options:
   --port <n>     port to serve on (default: random)
   --no-open      don't open the browser`);

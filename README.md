@@ -19,12 +19,17 @@ Files become buildings. Your agent walks between them, reading and building. Fai
 ## Quickstart
 
 ```bash
-git clone https://github.com/barood-labs/agenttown && cd agenttown
-npm install && npm run build
-node cli/agenttown.mjs          # replays your most recent Claude Code / Codex session
+npx @barood-labs/agenttown          # replays your most recent Claude Code / Codex session
+npx @barood-labs/agenttown --demo   # replays the bundled demo session
 ```
 
-> `npx agenttown` is coming once the package is on npm. Until then, use the clone above or the web version below.
+Or install it globally and run `agenttown`:
+
+```bash
+npm i -g @barood-labs/agenttown && agenttown
+```
+
+From source: `git clone https://github.com/barood-labs/agenttown && cd agenttown && npm install && npm run build && node cli/agenttown.mjs`
 
 No install at all? Open **[barood-labs.github.io/agenttown](https://barood-labs.github.io/agenttown/)** and drag a session `.jsonl` file onto the page.
 
