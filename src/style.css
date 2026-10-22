@@ -21,3 +21,8 @@ button:hover, .btn:hover { border-color: #ffd166; }
 code { background: #1b2045; padding: 1px 5px; border-radius: 3px; }
 .privacy { color: #80ff72; }
 a { color: #ffd166; }
+
+#stage { position: relative; }
+#tip { position: absolute; z-index: 5; max-width: 250px; background: rgba(10,12,30,.92); color: #e0e6ff; border: 1px solid #ffd166; padding: 6px 8px; font: 12px/1.4 'Courier New', monospace; pointer-events: none; word-break: break-all; }
+#tip.hidden { display: none; }
+#tip .bad { color: #ff6b6b; }

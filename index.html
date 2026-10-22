@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AgentTown · replay your AI coding session as a pixel-art town</title>
-<meta name="description" content="Drop a Claude Code or Codex session log and watch your agent build a tiny pixel town. Runs 100% in your browser." />
+<meta name="description" content="Drop a Claude Code or Codex session log (or watch one live) and watch your agent build a tiny pixel town. Runs 100% in your browser." />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%230b1026'/><rect x='3' y='6' width='4' height='8' fill='%235aa9ff'/><rect x='9' y='3' width='4' height='11' fill='%23ffd166'/></svg>" />
 <link rel="stylesheet" href="./src/style.css" />
 </head>
@@ -16,6 +16,7 @@
 <main>
   <div id="stage">
     <canvas id="view" width="960" height="540"></canvas>
+    <div id="tip" class="hidden"></div>
     <div id="drop" class="hidden"><div>Drop a <code>.jsonl</code> session here</div></div>
   </div>
   <div id="controls">
@@ -42,7 +43,7 @@
       <li><b>Claude Code</b>: <code>~/.claude/projects/&lt;project&gt;/*.jsonl</code></li>
       <li><b>Codex CLI</b>: <code>~/.codex/sessions/YYYY/MM/DD/rollout-*.jsonl</code></li>
     </ul>
-    <p>Or run <code>npx agenttown</code> in a terminal to replay your latest session automatically.</p>
+    <p>Or run <code>npx @barood-labs/agenttown</code> in a terminal to replay your latest session, or <code>npx @barood-labs/agenttown --watch</code> to watch the town build live while your agent works. Hover or click a building to inspect it.</p>
     <p class="privacy">🔒 Everything runs locally in your browser. Your session file is never uploaded anywhere.</p>
     <p><a href="https://github.com/barood-labs/agenttown">GitHub</a> · MIT · original pixel art, drawn in code</p>
   </section>

@@ -5,6 +5,8 @@ const script = [
   ['prompt', 'Build a tiny pomodoro timer CLI with tests and a nice progress bar'],
   ['think', "I'll look at the project layout first."],
   ['bash', 'ls -la'],
+  ['todo', 3],
+  ['agent', 'Explore: find timer libraries already in the repo'],
   ['read', 'package.json'], ['read', 'README.md'], ['read', 'tsconfig.json'],
   ['think', 'Plan: timer core, formatter, progress bar UI, CLI entry, tests.'],
   ['write', 'src/timer.ts'], ['write', 'src/format.ts'], ['write', 'src/ui/progress.ts'], ['write', 'src/ui/colors.ts'],
@@ -16,6 +18,7 @@ const script = [
   ['test', 'npm test', false, 'FAIL tests/format.test.ts\n  ✕ pads seconds\nTests: 1 failed, 5 passed'],
   ['read', 'src/format.ts'], ['edit', 'src/format.ts'],
   ['test', 'npm test', true, 'PASS tests/timer.test.ts\nPASS tests/format.test.ts\nTests: 6 passed, 6 total'],
+  ['web', 'terminal bell escape sequence'],
   ['search', 'TODO'],
   ['edit', 'src/ui/progress.ts'], ['write', 'src/ui/sound.ts'], ['edit', 'src/cli.ts'],
   ['write', 'docs/usage.md'], ['edit', 'README.md'],
@@ -40,6 +43,9 @@ for (const [kind, a, ok, out] of script) {
   if (kind === 'prompt') { cl.push({ ...base, type: 'user', timestamp: stamp(), uuid: id(), message: { role: 'user', content: a } }); continue; }
   if (kind === 'think') { asst([{ type: 'text', text: a }]); continue; }
   const tid = id();
+  if (kind === 'todo') { asst([{ type: 'tool_use', id: tid, name: 'TodoWrite', input: { todos: Array.from({ length: a }, (_, i) => ({ content: `step ${i + 1}`, status: 'pending', activeForm: '' })) } }]); result(tid, 'ok'); continue; }
+  if (kind === 'agent') { const [st, d] = a.split(': '); asst([{ type: 'tool_use', id: tid, name: 'Task', input: { subagent_type: st, description: d, prompt: d } }]); result(tid, 'none found'); continue; }
+  if (kind === 'web') { asst([{ type: 'tool_use', id: tid, name: 'WebSearch', input: { query: a } }]); result(tid, 'results'); continue; }
   const tool = { read: ['Read', { file_path: `${ROOT}/${a}` }], write: ['Write', { file_path: `${ROOT}/${a}`, content: '// …' }], edit: ['Edit', { file_path: `${ROOT}/${a}`, old_string: 'a', new_string: 'b' }], search: ['Grep', { pattern: a }], bash: ['Bash', { command: a }], test: ['Bash', { command: a }] }[kind];
   asst([{ type: 'tool_use', id: tid, name: tool[0], input: tool[1] }]);
   result(tid, out ?? 'ok', kind === 'test' && !ok);
@@ -54,13 +60,16 @@ for (const [kind, a, ok, out] of script) {
   if (kind === 'prompt') { ri({ type: 'message', role: 'user', content: [{ type: 'input_text', text: a }] }); continue; }
   if (kind === 'think') { ri({ type: 'message', role: 'assistant', content: [{ type: 'output_text', text: a }] }); tok(); continue; }
   const call = id();
+  if (kind === 'todo') { ri({ type: 'function_call', name: 'update_plan', call_id: call, arguments: JSON.stringify({ plan: Array.from({ length: a }, (_, i) => ({ step: `step ${i + 1}`, status: 'pending' })) }) }); ri({ type: 'function_call_output', call_id: call, output: 'Plan updated' }); tok(); continue; }
+  if (kind === 'agent') { ri({ type: 'agent_message', content: [{ type: 'output_text', text: a.split(': ')[1] }] }); tok(); continue; }
+  if (kind === 'web') { ri({ type: 'web_search_call', status: 'completed', action: { type: 'search', query: a } }); tok(); continue; }
   if (kind === 'write' || kind === 'edit') {
     ri({ type: 'custom_tool_call', name: 'apply_patch', call_id: call, input: `*** Begin Patch\n*** ${kind === 'write' ? 'Add' : 'Update'} File: ${a}\n+// …\n*** End Patch` });
     ri({ type: 'custom_tool_call_output', call_id: call, output: 'Success' });
   } else {
     const cmd = kind === 'read' ? `sed -n 1,200p ${a}` : kind === 'search' ? `rg -n ${a}` : a;
     ri({ type: 'function_call', name: 'shell', call_id: call, arguments: JSON.stringify({ command: ['bash', '-lc', cmd] }) });
-    ri({ type: 'function_call_output', call_id: call, output: JSON.stringify({ output: out ?? 'ok', metadata: { exit_code: kind === 'test' && !ok ? 1 : 0 } }) });
+    ri({ type: 'function_call_output', call_id: call, output: `Exit code: ${kind === 'test' && !ok ? 1 : 0}\nWall time: 1.2 seconds\nOutput:\n${out ?? 'ok'}` });
   }
   tok();
 }

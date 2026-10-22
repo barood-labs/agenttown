@@ -1,5 +1,5 @@
 import { parseSession, type Session } from './parser';
-import { buildModel, renderFrame, LOW_W, LOW_H, type Model } from './town';
+import { buildModel, renderFrame, hitTest, LOW_W, LOW_H, type Model } from './town';
 import { GIFEncoder, quantize, applyPalette } from 'gifenc';
 
 const view = document.getElementById('view') as HTMLCanvasElement;
@@ -10,15 +10,19 @@ const playBtn = $<HTMLButtonElement>('play'), scrub = $<HTMLInputElement>('scrub
 const speedSel = $<HTMLSelectElement>('speed'), status = $('status');
 
 let model: Model | null = null;
-let t = 0, playing = false, last = 0;
+let t = 0, playing = false, last = 0, liveMode = false;
 
-function load(text: string, name: string) {
+function load(text: string, name: string, live = false) {
   try {
     const s: Session = parseSession(text);
+    const prev = model;
+    const following = !prev || t >= prev.duration - 0.05 || playing;
     model = buildModel(s);
-    t = 0; status.textContent = `${name}: ${s.events.length} events, ${s.files.length} files`;
-    draw(); setPlaying(true);
-  } catch (e: any) { status.textContent = '⚠ ' + e.message; }
+    if (!live || !prev) t = 0;
+    status.textContent = `${live ? '● LIVE  ' : ''}${name}: ${s.events.length} events, ${s.files.length} files`;
+    draw(); if (!live || following) setPlaying(true);
+    return true;
+  } catch (e: any) { status.textContent = live ? `● LIVE  waiting for events… (${e.message})` : '⚠ ' + e.message; return false; }
 }
 
 function draw() {
@@ -33,7 +37,7 @@ function setPlaying(p: boolean) { playing = p; playBtn.textContent = p ? '❚❚
 function tick(now: number) {
   if (playing && model) {
     t += ((now - last) / 1000) * Number(speedSel.value);
-    if (t >= model.duration) { t = model.duration; setPlaying(false); }
+    if (t >= model.duration) { t = model.duration; if (!liveMode) setPlaying(false); }
     draw();
   }
   last = now;
@@ -107,10 +111,50 @@ $('webm').onclick = () => {
   exportGif: async (o: any) => { const b = await exportGif(o); let s = ''; for (let i = 0; i < b.length; i += 0x8000) s += String.fromCharCode(...b.subarray(i, i + 0x8000)); return btoa(s); },
 };
 
+// hover / click a building for details
+const tip = $('tip');
+let pinned = false;
+function inspect(ev: MouseEvent) {
+  if (!model) return null;
+  const r = view.getBoundingClientRect();
+  return hitTest(model, t, (ev.clientX - r.left) / r.width * LOW_W, (ev.clientY - r.top) / r.height * LOW_H);
+}
+function showTip(ev: MouseEvent, info: ReturnType<typeof hitTest>) {
+  if (!info) { tip.classList.add('hidden'); view.style.cursor = ''; return; }
+  view.style.cursor = 'pointer';
+  const esc = (x: string) => x.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]!));
+  tip.innerHTML = `<b>${esc(info.file)}</b><br>${info.floors} floor${info.floors > 1 ? 's' : ''} · ${info.writes ? 'created · ' : ''}${info.edits} edit${info.edits === 1 ? '' : 's'} · ${info.reads} read${info.reads === 1 ? '' : 's'}${info.fails ? ` · <span class="bad">${info.fails} failing test run${info.fails > 1 ? 's' : ''}</span>` : ''}<br><i>last: ${esc(info.last)}</i>`;
+  const r = view.parentElement!.getBoundingClientRect();
+  tip.style.left = `${Math.min(ev.clientX - r.left + 12, r.width - 260)}px`; tip.style.top = `${ev.clientY - r.top + 12}px`;
+  tip.classList.remove('hidden');
+}
+view.addEventListener('mousemove', e => { if (!pinned) showTip(e, inspect(e)); });
+view.addEventListener('mouseleave', () => { if (!pinned) tip.classList.add('hidden'); });
+view.addEventListener('click', e => { const i = inspect(e); pinned = !!i && !pinned; showTip(e, i); });
+
+// live mode: the CLI tails the session file and streams appended lines over SSE
+function startLive() {
+  liveMode = true;
+  let text = '', name = '';
+  const es = new EventSource('/__events');
+  es.addEventListener('reset', (e: MessageEvent) => { const d = JSON.parse(e.data); text = d.text; name = d.name; model = null; load(text, name, true); });
+  es.addEventListener('append', (e: MessageEvent) => { text += JSON.parse(e.data).text; load(text, name, true); });
+  es.onerror = () => { status.textContent = '● LIVE  disconnected, retrying…'; };
+}
+
+// CLI --gif: render, then hand the bytes back to the local server
+async function exportToCli() {
+  for (let i = 0; i < 200 && !model; i++) await new Promise(r => setTimeout(r, 50));
+  const bytes = await exportGif({ width: Number(qs.get('w') || 720) });
+  await fetch('/__gif', { method: 'POST', body: bytes });
+  status.textContent = 'GIF saved by the CLI. You can close this tab.';
+}
+
 // boot: CLI-served session, ?session=url, or the bundled sample
 const qs = new URLSearchParams(location.search);
 (async () => {
-  if (qs.get('local') === '1') return loadUrl('/__session');
+  if (qs.get('live') === '1') return startLive();
+  if (qs.get('local') === '1') { await loadUrl('/__session'); if (qs.get('export') === 'gif') { setPlaying(false); exportToCli(); } return; }
   if (qs.get('session')) return loadUrl(qs.get('session')!);
   if (qs.get('sample') === 'codex') { $<HTMLSelectElement>('sample').value = 'samples/codex-demo.jsonl'; return loadUrl('samples/codex-demo.jsonl'); }
   loadUrl('samples/claude-code-demo.jsonl');
