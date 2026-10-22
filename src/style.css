@@ -1,0 +1,23 @@
+:root { color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #070a1a; color: #e0e6ff; font: 15px/1.5 ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; }
+header { text-align: center; padding: 18px 12px 6px; }
+h1 { margin: 0; font-size: 34px; letter-spacing: 2px; color: #fff; }
+h1 span { color: #ffd166; }
+header p { margin: 4px 0 0; color: #9aa3d6; }
+main { max-width: 980px; margin: 0 auto; padding: 10px; }
+#stage { position: relative; border: 3px solid #2b2f55; border-radius: 6px; overflow: hidden; background: #0b1026; }
+canvas { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+#drop { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(11,16,38,.85); border: 3px dashed #ffd166; font-size: 22px; }
+.hidden { display: none !important; }
+#controls, #actions { display: flex; gap: 10px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+#scrub { flex: 1; accent-color: #ffd166; }
+button, .btn, select { background: #1b2045; color: #e0e6ff; border: 2px solid #3a4080; border-radius: 4px; padding: 6px 12px; font: inherit; cursor: pointer; }
+button:hover, .btn:hover { border-color: #ffd166; }
+#play { width: 52px; font-size: 18px; }
+#status { color: #9aa3d6; }
+#help { margin-top: 18px; color: #b7bee6; }
+#help h2 { font-size: 16px; color: #fff; }
+code { background: #1b2045; padding: 1px 5px; border-radius: 3px; }
+.privacy { color: #80ff72; }
+a { color: #ffd166; }

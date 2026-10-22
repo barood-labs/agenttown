@@ -1,0 +1,91 @@
+{"timestamp":"2026-10-21T18:00:05.003Z","type":"session_meta","payload":{"id":"demo-codex-session","cwd":"/home/demo/pomodoro","originator":"codex_cli_rs","cli_version":"0.50.0"}}
+{"timestamp":"2026-10-21T18:00:09.224Z","type":"response_item","payload":{"type":"message","role":"user","content":[{"type":"input_text","text":"Build a tiny pomodoro timer CLI with tests and a nice progress bar"}]}}
+{"timestamp":"2026-10-21T18:00:13.421Z","type":"response_item","payload":{"type":"message","role":"assistant","content":[{"type":"output_text","text":"I'll look at the project layout first."}]}}
+{"timestamp":"2026-10-21T18:00:18.467Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":1653}}}}
+{"timestamp":"2026-10-21T18:00:23.460Z","type":"response_item","payload":{"type":"function_call","name":"shell","call_id":"toolu_demo0087","arguments":"{\"command\":[\"bash\",\"-lc\",\"ls -la\"]}"}}
+{"timestamp":"2026-10-21T18:00:30.243Z","type":"response_item","payload":{"type":"function_call_output","call_id":"toolu_demo0087","output":"{\"output\":\"ok\",\"metadata\":{\"exit_code\":0}}"}}
+{"timestamp":"2026-10-21T18:00:36.269Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":2871}}}}
+{"timestamp":"2026-10-21T18:00:43.253Z","type":"response_item","payload":{"type":"function_call","name":"shell","call_id":"toolu_demo0088","arguments":"{\"command\":[\"bash\",\"-lc\",\"sed -n 1,200p package.json\"]}"}}
+{"timestamp":"2026-10-21T18:00:49.506Z","type":"response_item","payload":{"type":"function_call_output","call_id":"toolu_demo0088","output":"{\"output\":\"ok\",\"metadata\":{\"exit_code\":0}}"}}
+{"timestamp":"2026-10-21T18:00:56.222Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":5069}}}}
+{"timestamp":"2026-10-21T18:01:00.918Z","type":"response_item","payload":{"type":"function_call","name":"shell","call_id":"toolu_demo0089","arguments":"{\"command\":[\"bash\",\"-lc\",\"sed -n 1,200p README.md\"]}"}}
+{"timestamp":"2026-10-21T18:01:05.226Z","type":"response_item","payload":{"type":"function_call_output","call_id":"toolu_demo0089","output":"{\"output\":\"ok\",\"metadata\":{\"exit_code\":0}}"}}
+{"timestamp":"2026-10-21T18:01:10.712Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":7227}}}}
+{"timestamp":"2026-10-21T18:01:16.819Z","type":"response_item","payload":{"type":"function_call","name":"shell","call_id":"toolu_demo0090","arguments":"{\"command\":[\"bash\",\"-lc\",\"sed -n 1,200p tsconfig.json\"]}"}}
+{"timestamp":"2026-10-21T18:01:21.275Z","type":"response_item","payload":{"type":"function_call_output","call_id":"toolu_demo0090","output":"{\"output\":\"ok\",\"metadata\":{\"exit_code\":0}}"}}
+{"timestamp":"2026-10-21T18:01:25.938Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":8700}}}}
+{"timestamp":"2026-10-21T18:01:31.493Z","type":"response_item","payload":{"type":"message","role":"assistant","content":[{"type":"output_text","text":"Plan: timer core, formatter, progress bar UI, CLI entry, tests."}]}}
+{"timestamp":"2026-10-21T18:01:36.195Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":10027}}}}
+{"timestamp":"2026-10-21T18:01:42.528Z","type":"response_item","payload":{"type":"custom_tool_call","name":"apply_patch","call_id":"toolu_demo0091","input":"*** Begin Patch\n*** Add File: src/timer.ts\n+// …\n*** End Patch"}}
+{"timestamp":"2026-10-21T18:01:48.844Z","type":"response_item","payload":{"type":"custom_tool_call_output","call_id":"toolu_demo0091","output":"Success"}}
+{"timestamp":"2026-10-21T18:01:54.556Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":11117}}}}
+{"timestamp":"2026-10-21T18:01:58.651Z","type":"response_item","payload":{"type":"custom_tool_call","name":"apply_patch","call_id":"toolu_demo0092","input":"*** Begin Patch\n*** Add File: src/format.ts\n+// …\n*** End Patch"}}
+{"timestamp":"2026-10-21T18:02:02.812Z","type":"response_item","payload":{"type":"custom_tool_call_output","call_id":"toolu_demo0092","output":"Success"}}
+{"timestamp":"2026-10-21T18:02:07.313Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":12533}}}}
+{"timestamp":"2026-10-21T18:02:11.726Z","type":"response_item","payload":{"type":"custom_tool_call","name":"apply_patch","call_id":"toolu_demo0093","input":"*** Begin Patch\n*** Add File: src/ui/progress.ts\n+// …\n*** End Patch"}}
+{"timestamp":"2026-10-21T18:02:16.068Z","type":"response_item","payload":{"type":"custom_tool_call_output","call_id":"toolu_demo0093","output":"Success"}}
+{"timestamp":"2026-10-21T18:02:21.352Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":13521}}}}
+{"timestamp":"2026-10-21T18:02:26.566Z","type":"response_item","payload":{"type":"custom_tool_call","name":"apply_patch","call_id":"toolu_demo0094","input":"*** Begin Patch\n*** Add File: src/ui/colors.ts\n+// …\n*** End Patch"}}
+{"timestamp":"2026-10-21T18:02:31.011Z","type":"response_item","payload":{"type":"custom_tool_call_output","call_id":"toolu_demo0094","output":"Success"}}
+{"timestamp":"2026-10-21T18:02:36.169Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":15013}}}}
+{"timestamp":"2026-10-21T18:02:42.368Z","type":"response_item","payload":{"type":"custom_tool_call","name":"apply_patch","call_id":"toolu_demo0095","input":"*** Begin Patch\n*** Add File: src/cli.ts\n+// …\n*** End Patch"}}
+{"timestamp":"2026-10-21T18:02:48.975Z","type":"response_item","payload":{"type":"custom_tool_call_output","call_id":"toolu_demo0095","output":"Success"}}
+{"timestamp":"2026-10-21T18:02:54.944Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":16738}}}}
+{"timestamp":"2026-10-21T18:03:00.772Z","type":"response_item","payload":{"type":"custom_tool_call","name":"apply_patch","call_id":"toolu_demo0096","input":"*** Begin Patch\n*** Update File: package.json\n+// …\n*** End Patch"}}
+{"timestamp":"2026-10-21T18:03:05.626Z","type":"response_item","payload":{"type":"custom_tool_call_output","call_id":"toolu_demo0096","output":"Success"}}
+{"timestamp":"2026-10-21T18:03:10.764Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":17653}}}}
+{"timestamp":"2026-10-21T18:03:15.724Z","type":"response_item","payload":{"type":"custom_tool_call","name":"apply_patch","call_id":"toolu_demo0097","input":"*** Begin Patch\n*** Add File: tests/timer.test.ts\n+// …\n*** End Patch"}}
+{"timestamp":"2026-10-21T18:03:21.259Z","type":"response_item","payload":{"type":"custom_tool_call_output","call_id":"toolu_demo0097","output":"Success"}}
+{"timestamp":"2026-10-21T18:03:25.803Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":18809}}}}
+{"timestamp":"2026-10-21T18:03:30.216Z","type":"response_item","payload":{"type":"custom_tool_call","name":"apply_patch","call_id":"toolu_demo0098","input":"*** Begin Patch\n*** Add File: tests/format.test.ts\n+// …\n*** End Patch"}}
+{"timestamp":"2026-10-21T18:03:36.718Z","type":"response_item","payload":{"type":"custom_tool_call_output","call_id":"toolu_demo0098","output":"Success"}}
+{"timestamp":"2026-10-21T18:03:41.394Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":20080}}}}
+{"timestamp":"2026-10-21T18:03:48.353Z","type":"response_item","payload":{"type":"function_call","name":"shell","call_id":"toolu_demo0099","arguments":"{\"command\":[\"bash\",\"-lc\",\"npm test\"]}"}}
+{"timestamp":"2026-10-21T18:03:54.322Z","type":"response_item","payload":{"type":"function_call_output","call_id":"toolu_demo0099","output":"{\"output\":\"FAIL tests/timer.test.ts\\n  ✕ pauses and resumes (12 ms)\\nTests: 1 failed, 5 passed\",\"metadata\":{\"exit_code\":1}}"}}
+{"timestamp":"2026-10-21T18:04:00.184Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":21942}}}}
+{"timestamp":"2026-10-21T18:04:04.478Z","type":"response_item","payload":{"type":"message","role":"assistant","content":[{"type":"output_text","text":"resume() restarts from the full duration instead of the remaining time. Fixing."}]}}
+{"timestamp":"2026-10-21T18:04:08.533Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":24208}}}}
+{"timestamp":"2026-10-21T18:04:14.594Z","type":"response_item","payload":{"type":"function_call","name":"shell","call_id":"toolu_demo0100","arguments":"{\"command\":[\"bash\",\"-lc\",\"sed -n 1,200p src/timer.ts\"]}"}}
+{"timestamp":"2026-10-21T18:04:19.943Z","type":"response_item","payload":{"type":"function_call_output","call_id":"toolu_demo0100","output":"{\"output\":\"ok\",\"metadata\":{\"exit_code\":0}}"}}
+{"timestamp":"2026-10-21T18:04:25.348Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":26375}}}}
+{"timestamp":"2026-10-21T18:04:30.064Z","type":"response_item","payload":{"type":"custom_tool_call","name":"apply_patch","call_id":"toolu_demo0101","input":"*** Begin Patch\n*** Update File: src/timer.ts\n+// …\n*** End Patch"}}
+{"timestamp":"2026-10-21T18:04:36.300Z","type":"response_item","payload":{"type":"custom_tool_call_output","call_id":"toolu_demo0101","output":"Success"}}
+{"timestamp":"2026-10-21T18:04:43.171Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":28696}}}}
+{"timestamp":"2026-10-21T18:04:47.591Z","type":"response_item","payload":{"type":"function_call","name":"shell","call_id":"toolu_demo0102","arguments":"{\"command\":[\"bash\",\"-lc\",\"npm test\"]}"}}
+{"timestamp":"2026-10-21T18:04:53.278Z","type":"response_item","payload":{"type":"function_call_output","call_id":"toolu_demo0102","output":"{\"output\":\"FAIL tests/format.test.ts\\n  ✕ pads seconds\\nTests: 1 failed, 5 passed\",\"metadata\":{\"exit_code\":1}}"}}
+{"timestamp":"2026-10-21T18:04:59.988Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":30548}}}}
+{"timestamp":"2026-10-21T18:05:04.933Z","type":"response_item","payload":{"type":"function_call","name":"shell","call_id":"toolu_demo0103","arguments":"{\"command\":[\"bash\",\"-lc\",\"sed -n 1,200p src/format.ts\"]}"}}
+{"timestamp":"2026-10-21T18:05:10.709Z","type":"response_item","payload":{"type":"function_call_output","call_id":"toolu_demo0103","output":"{\"output\":\"ok\",\"metadata\":{\"exit_code\":0}}"}}
+{"timestamp":"2026-10-21T18:05:17.248Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":32087}}}}
+{"timestamp":"2026-10-21T18:05:23.754Z","type":"response_item","payload":{"type":"custom_tool_call","name":"apply_patch","call_id":"toolu_demo0104","input":"*** Begin Patch\n*** Update File: src/format.ts\n+// …\n*** End Patch"}}
+{"timestamp":"2026-10-21T18:05:28.448Z","type":"response_item","payload":{"type":"custom_tool_call_output","call_id":"toolu_demo0104","output":"Success"}}
+{"timestamp":"2026-10-21T18:05:34.662Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":33607}}}}
+{"timestamp":"2026-10-21T18:05:41.264Z","type":"response_item","payload":{"type":"function_call","name":"shell","call_id":"toolu_demo0105","arguments":"{\"command\":[\"bash\",\"-lc\",\"npm test\"]}"}}
+{"timestamp":"2026-10-21T18:05:47.325Z","type":"response_item","payload":{"type":"function_call_output","call_id":"toolu_demo0105","output":"{\"output\":\"PASS tests/timer.test.ts\\nPASS tests/format.test.ts\\nTests: 6 passed, 6 total\",\"metadata\":{\"exit_code\":0}}"}}
+{"timestamp":"2026-10-21T18:05:52.793Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":35967}}}}
+{"timestamp":"2026-10-21T18:05:58.146Z","type":"response_item","payload":{"type":"function_call","name":"shell","call_id":"toolu_demo0106","arguments":"{\"command\":[\"bash\",\"-lc\",\"rg -n TODO\"]}"}}
+{"timestamp":"2026-10-21T18:06:03.818Z","type":"response_item","payload":{"type":"function_call_output","call_id":"toolu_demo0106","output":"{\"output\":\"ok\",\"metadata\":{\"exit_code\":0}}"}}
+{"timestamp":"2026-10-21T18:06:10.075Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":37884}}}}
+{"timestamp":"2026-10-21T18:06:15.185Z","type":"response_item","payload":{"type":"custom_tool_call","name":"apply_patch","call_id":"toolu_demo0107","input":"*** Begin Patch\n*** Update File: src/ui/progress.ts\n+// …\n*** End Patch"}}
+{"timestamp":"2026-10-21T18:06:20.229Z","type":"response_item","payload":{"type":"custom_tool_call_output","call_id":"toolu_demo0107","output":"Success"}}
+{"timestamp":"2026-10-21T18:06:26.948Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":38846}}}}
+{"timestamp":"2026-10-21T18:06:31.517Z","type":"response_item","payload":{"type":"custom_tool_call","name":"apply_patch","call_id":"toolu_demo0108","input":"*** Begin Patch\n*** Add File: src/ui/sound.ts\n+// …\n*** End Patch"}}
+{"timestamp":"2026-10-21T18:06:38.255Z","type":"response_item","payload":{"type":"custom_tool_call_output","call_id":"toolu_demo0108","output":"Success"}}
+{"timestamp":"2026-10-21T18:06:42.811Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":40997}}}}
+{"timestamp":"2026-10-21T18:06:47.316Z","type":"response_item","payload":{"type":"custom_tool_call","name":"apply_patch","call_id":"toolu_demo0109","input":"*** Begin Patch\n*** Update File: src/cli.ts\n+// …\n*** End Patch"}}
+{"timestamp":"2026-10-21T18:06:52.235Z","type":"response_item","payload":{"type":"custom_tool_call_output","call_id":"toolu_demo0109","output":"Success"}}
+{"timestamp":"2026-10-21T18:06:57.039Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":42936}}}}
+{"timestamp":"2026-10-21T18:07:03.386Z","type":"response_item","payload":{"type":"custom_tool_call","name":"apply_patch","call_id":"toolu_demo0110","input":"*** Begin Patch\n*** Add File: docs/usage.md\n+// …\n*** End Patch"}}
+{"timestamp":"2026-10-21T18:07:09.010Z","type":"response_item","payload":{"type":"custom_tool_call_output","call_id":"toolu_demo0110","output":"Success"}}
+{"timestamp":"2026-10-21T18:07:13.677Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":44266}}}}
+{"timestamp":"2026-10-21T18:07:18.179Z","type":"response_item","payload":{"type":"custom_tool_call","name":"apply_patch","call_id":"toolu_demo0111","input":"*** Begin Patch\n*** Update File: README.md\n+// …\n*** End Patch"}}
+{"timestamp":"2026-10-21T18:07:24.100Z","type":"response_item","payload":{"type":"custom_tool_call_output","call_id":"toolu_demo0111","output":"Success"}}
+{"timestamp":"2026-10-21T18:07:29.112Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":46609}}}}
+{"timestamp":"2026-10-21T18:07:33.791Z","type":"response_item","payload":{"type":"function_call","name":"shell","call_id":"toolu_demo0112","arguments":"{\"command\":[\"bash\",\"-lc\",\"npm run build\"]}"}}
+{"timestamp":"2026-10-21T18:07:39.087Z","type":"response_item","payload":{"type":"function_call_output","call_id":"toolu_demo0112","output":"{\"output\":\"ok\",\"metadata\":{\"exit_code\":0}}"}}
+{"timestamp":"2026-10-21T18:07:43.920Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":48570}}}}
+{"timestamp":"2026-10-21T18:07:48.651Z","type":"response_item","payload":{"type":"function_call","name":"shell","call_id":"toolu_demo0113","arguments":"{\"command\":[\"bash\",\"-lc\",\"npm test\"]}"}}
+{"timestamp":"2026-10-21T18:07:52.878Z","type":"response_item","payload":{"type":"function_call_output","call_id":"toolu_demo0113","output":"{\"output\":\"Tests: 9 passed, 9 total\",\"metadata\":{\"exit_code\":0}}"}}
+{"timestamp":"2026-10-21T18:07:57.912Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":50199}}}}
+{"timestamp":"2026-10-21T18:08:02.945Z","type":"response_item","payload":{"type":"message","role":"assistant","content":[{"type":"output_text","text":"Done! `npx pomodoro 25` now runs a 25-minute focus session with a progress bar."}]}}
+{"timestamp":"2026-10-21T18:08:07.093Z","type":"event_msg","payload":{"type":"token_count","info":{"total_token_usage":{"total_tokens":51325}}}}
