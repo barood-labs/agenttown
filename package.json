@@ -14,7 +14,7 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "samples": "node scripts/make-samples.mjs",
-    "test": "node --test test/",
+    "test": "node --test test/*.mjs",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
