@@ -8,6 +8,13 @@
 Files become buildings. Your agent walks between them, reading and building. Failing tests set things on fire. Passing tests set off fireworks.</p>
 
 <p align="center">
+  <a href="https://www.npmjs.com/package/@barood-labs/agenttown"><img src="https://img.shields.io/npm/v/@barood-labs/agenttown?color=cb3837" alt="npm"></a>
+  <a href="https://github.com/barood-labs/agenttown/actions/workflows/ci.yml"><img src="https://github.com/barood-labs/agenttown/actions/workflows/ci.yml/badge.svg" alt="ci"></a>
+  <a href="https://barood-labs.github.io/agenttown/"><img src="https://img.shields.io/badge/demo-live-brightgreen" alt="demo"></a>
+  <img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT">
+</p>
+
+<p align="center">
   <a href="https://barood-labs.github.io/agenttown/"><b>▶ Try the live demo</b></a> ·
   <a href="#quickstart">Quickstart</a> ·
   <a href="#supported-agents">Supported agents</a> ·
@@ -75,7 +82,7 @@ Leave it open in a browser tab next to your terminal. The CLI tails the session 
 
 **Hover a building** to see its path, floors, edits, reads, failing test runs and the last action on it. Click to pin the card.
 
-Controls: play/pause (space), scrub the timeline, 0.5× to 8× speed, **Export GIF** (frame-exact) or **Export WebM** to share your replay.
+Controls: play/pause (space), scrub (←/→ or J/L), jump Home/End, speed ([ / ]), **Export GIF** (frame-exact) or **Export WebM** to share your replay.
 
 ## Supported agents
 
@@ -113,7 +120,7 @@ node scripts/record-hero.mjs   # re-record docs/hero.gif headlessly (Playwright 
 
 - Cursor, Gemini CLI, OpenCode and Aider support
 - Day/night cycle and idle-gap compression from real timestamps
-- Redaction before export
+- ~~Home-path redaction in labels~~ (usernames → `~`); full secret scrub still planned
 - Share links that encode a redacted session in the URL
 
 ## License

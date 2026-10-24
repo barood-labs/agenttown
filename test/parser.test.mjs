@@ -65,3 +65,17 @@ test('cli: --list skips subagent sidechains', async () => {
   assert.match(out, /sess1\.jsonl/);
   assert.doesNotMatch(out, /agent-/);
 });
+
+test('claude: home paths redacted in labels', () => {
+  const home = mkdtempSync(join(tmpdir(), 'agenttown-redact-'));
+  const body = [
+    JSON.stringify({ type: 'user', message: { role: 'user', content: 'hi' }, cwd: '/Users/alice/acme', uuid: 'u1', timestamp: '2026-01-01T00:00:00.000Z' }),
+    JSON.stringify({ type: 'assistant', message: { id: 'msg_R', role: 'assistant', content: [{ type: 'tool_use', id: 't1', name: 'Bash', input: { command: 'cat /Users/alice/acme/src/a.ts /home/bob/x' } }], usage: { input_tokens: 1, output_tokens: 1 } }, uuid: 'a1', timestamp: '2026-01-01T00:00:01.000Z' }),
+    JSON.stringify({ type: 'user', message: { role: 'user', content: [{ type: 'tool_result', tool_use_id: 't1', content: 'ok', is_error: false }] }, uuid: 'u2', parentUuid: 'a1', timestamp: '2026-01-01T00:00:02.000Z' }),
+  ].join('\n');
+  const s = parseSession(body);
+  const bash = s.events.find(e => e.kind === 'bash' || e.kind === 'read');
+  assert.ok(bash, 'has bash/read');
+  assert.doesNotMatch(bash.label, /alice|bob/);
+  assert.match(bash.label, /~/);
+});

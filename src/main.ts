@@ -47,7 +47,23 @@ requestAnimationFrame(tick);
 
 playBtn.onclick = () => { if (model && t >= model.duration) t = 0; setPlaying(!playing); };
 scrub.oninput = () => { if (!model) return; t = (Number(scrub.value) / 1000) * model.duration; draw(); };
-document.addEventListener('keydown', e => { if (e.code === 'Space' && (e.target as HTMLElement).tagName !== 'INPUT') { e.preventDefault(); playBtn.click(); } });
+document.addEventListener('keydown', e => {
+  const tag = (e.target as HTMLElement).tagName;
+  if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
+  if (e.code === 'Space') { e.preventDefault(); playBtn.click(); return; }
+  if (!model) return;
+  if (e.code === 'ArrowRight' || e.code === 'KeyL') { e.preventDefault(); t = Math.min(model.duration, t + 0.5 * Number(speedSel.value)); draw(); }
+  else if (e.code === 'ArrowLeft' || e.code === 'KeyJ') { e.preventDefault(); t = Math.max(0, t - 0.5 * Number(speedSel.value)); draw(); }
+  else if (e.code === 'Home') { e.preventDefault(); t = 0; draw(); }
+  else if (e.code === 'End') { e.preventDefault(); t = model.duration; draw(); }
+  else if (e.key === ']' || e.key === '[') {
+    e.preventDefault();
+    const opts = [...speedSel.options].map(o => Number(o.value));
+    const i = opts.indexOf(Number(speedSel.value));
+    const n = e.key === ']' ? Math.min(opts.length - 1, i + 1) : Math.max(0, i - 1);
+    speedSel.value = String(opts[n]);
+  }
+});
 
 async function loadUrl(url: string) {
   status.textContent = 'loading…';

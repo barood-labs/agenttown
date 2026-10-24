@@ -22,19 +22,29 @@ export interface Session {
 const TEST_RE = /\b(test|tests|jest|vitest|pytest|mocha|ava|tap|cargo\s+test|go\s+test|npm\s+t\b|pnpm\s+t\b|rspec|phpunit|unittest)\b/i;
 const FAIL_RE = /(\bFAIL(ED)?\b|\b[1-9]\d*\s+(failed|failing|failures?)\b|AssertionError|✗|✖|Traceback|panicked|error\[|Tests?:\s+\d+\s+failed)/i;
 
+/** Strip home-directory prefixes so GIF/exports don't leak usernames. */
+function redact(s: string): string {
+  return String(s ?? '')
+    .replace(/[A-Za-z]:\\Users\\[^\\]+/gi, '~')
+    .replace(/\/Users\/[^/\s]+/g, '~')
+    .replace(/\/home\/[^/\s]+/g, '~');
+}
+
 function short(s: string, n = 70): string {
-  s = String(s ?? '').replace(/\s+/g, ' ').trim();
+  s = redact(s).replace(/\s+/g, ' ').trim();
   return s.length > n ? s.slice(0, n - 1) + '…' : s;
 }
 
 function rel(path: string | undefined, root: string): string | undefined {
   if (!path) return undefined;
-  let p = String(path).replace(/\\/g, '/');
-  if (root && p.startsWith(root + '/')) p = p.slice(root.length + 1);
+  let p = redact(String(path)).replace(/\\/g, '/');
+  if (root) {
+    const r = redact(root).replace(/\\/g, '/');
+    if (p.startsWith(r + '/')) p = p.slice(r.length + 1);
+  }
   p = p.replace(/^\.\//, '');
-  if (p.startsWith('/')) {
-    // keep the last 3 segments of absolute paths outside the project
-    const parts = p.split('/').filter(Boolean);
+  if (p.startsWith('/') || p.startsWith('~/')) {
+    const parts = p.replace(/^~\//, '').split('/').filter(Boolean);
     p = parts.slice(-3).join('/');
   }
   return p || undefined;
