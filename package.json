@@ -1,6 +1,6 @@
 {
   "name": "@barood-labs/agenttown",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Replay your AI coding agent session (Claude Code, Codex) as a pixel-art isometric town.",
   "type": "module",
   "bin": {
@@ -34,7 +34,7 @@
   "homepage": "https://barood-labs.github.io/agenttown/",
   "license": "MIT",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "devDependencies": {
     "esbuild": "^0.28.2",
